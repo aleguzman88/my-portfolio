@@ -1,14 +1,9 @@
-import express from 'express';
-var app = express();
+const express = require('express');
+const app = require('./app');
 
-app.use('/', function(req, res) {
-res.send('Hello World');
+// Listen to the App Engine-specified port, or 8080 otherwise
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}...`);
 });
 
-if (require.main === app.js) {
-app.listen(3000, function () {
-console.log('Server running at http://localhost:3000/');
-});
-} else {
-module.exports = app;
-}
