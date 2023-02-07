@@ -23,7 +23,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // Adding the Home route
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
   res.render('index', { title: 'Home' });
 });
 
