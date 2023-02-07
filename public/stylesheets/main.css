@@ -1,0 +1,124 @@
+
+
+h1 {
+  text-align: center;
+  /*text-transform: uppercase;*/
+  color: #dde9dd;
+  font-family: "Lucida Console", "Courier New", monospace;
+  }
+
+a {
+    text-decoration: none;
+    color: #008CBA;
+    text-decoration: underline;
+    font-weight: bold;
+  } 
+
+p {
+  text-decoration: none;
+  color: #f2f5f7;
+} 
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #052e41;
+    background-image: url("/images/logo1.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-attachment: fixed;
+    background-position-x: center; 
+    background-position-y: 80px;
+    
+  }
+
+img {
+  float: right;
+  border-style: inset;
+}
+
+header {
+  border-style: inset;
+  background-color: transparent;
+  color: #fff;
+  padding: 1em;
+  
+ }
+ 
+
+
+
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+header nav li {
+  margin-right: 1em;
+  float: left;
+  
+}
+
+header nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+section {
+  max-width: 800px;
+  margin: 2em auto;
+  text-align: center;
+  text-align: justify;
+  text-justify: inter-word;
+  text-indent: 50px;
+  
+}
+.content-container {
+  height: 500px;
+  overflow: auto;
+}
+
+
+footer {
+  margin-top: 250px;
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  opacity: 0.2;
+}
+
+/*3D Buttons*/
+.button-container {
+  margin-right: 20px; /* adjust this value to increase or decrease the space between buttons */
+}
+
+button {
+  transform:
+    rotateX(51deg)
+    rotateZ(43deg);
+  transform-style: preserve-3d;
+  border-radius: 32px;
+  box-shadow:
+    1px 1px 0 1px #f9f9fb,
+    -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+    28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+  transition:
+    .8s ease-in-out transform,
+    .8s ease-in-out box-shadow;
+    
+}
+
+button:hover {
+    transform:
+      translate3d(0px, -16px, 0px)
+      rotateX(51deg)
+      rotateZ(43deg);
+    box-shadow:
+      1px 1px 0 1px #f9f9fb,
+      -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+      54px 54px 28px -10px rgba(34, 33, 81, 0.15);
+}
