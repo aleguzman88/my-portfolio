@@ -42,6 +42,47 @@ app.get('/services', (req, res) => {
 app.get('/contact', (req, res) => {
   res.render('contact/contact', { title: 'Contact' });
 });
+
+app.get('/login', (req, res) => {
+  res.render('login/login', { title: 'Login' });
+});
+
+app.get('/business_cl', (req, res) => {
+  res.render('business_cl/business_cl', { title: 'Business Contact List' });
+});
+
+//******************************************** */
+//const express = require('express');
+const mongoose = require('mongoose');
+const User = require('./models/user');
+
+//const app = express();
+const port = 4000;
+
+// Database connection URL
+const url = 'mongodb://localhost:27017';
+
+// Database name
+const dbName = 'bcontatcs';
+
+// Connect to the MongoDB server
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB server');
+}).catch((error) => {
+  console.log('Error connecting to MongoDB server', error);
+});
+
+// Start the server
+app.listen(port, function() {
+  console.log(`Server started on port ${port}`);
+});
+
+
+//******************************************** */
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
