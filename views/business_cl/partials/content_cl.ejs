@@ -1,0 +1,26 @@
+
+  <body>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    <h1>Business Contacts List</h1>
+    <table>
+        <thead>
+          <tr>
+            <th>Contact Name</th>
+            <th>Contact Number</th>
+            <th>Email Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contacts.forEach(function(contact) { %>
+            <tr>
+              <td><%= contacts.username %></td>
+              <td><%= contacts.phone %></td>
+              <td><%= contacts.email %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      
+    <a href="/update">Add New Contact</a>
+  </body>
+

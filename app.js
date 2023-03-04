@@ -1,23 +1,53 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const flash = require('connect-flash');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const businessRouter = require('./routes/business');
+const loginRouter = require('./routes/login');
 
-var app = express();
+const app = express();
 
 // views engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Set up body-parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Set up express-session middleware
+app.use(session({
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Set up connect-flash middleware
+app.use(flash());
+
+// Middleware to check if the user is authenticated
+app.use(['/business'], function(req, res, next) {
+  if (req.session.userId) {
+    next();
+  } else {
+    req.flash('error', 'You need to be logged in to access this page.');
+    res.redirect('/login');
+  }
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -30,9 +60,9 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
   res.render('about/about', { title: 'About' });
 });
+
 app.get('/projects', (req, res) => {
   res.render('projects/projects', { title: 'Projects' });
-
 });
 
 app.get('/services', (req, res) => {
@@ -48,22 +78,18 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/business_cl', (req, res) => {
-  res.render('business_cl/business_cl', { title: 'Business Contact List' });
+  res.render('business_cl/business_cl', { title: 'Business Contacts List' });
 });
 
-//******************************************** */
-//const express = require('express');
-const mongoose = require('mongoose');
-const User = require('./models/user');
+app.get('/update', (req, res) => {
+  res.render('update/update', { title: 'update' });
+});
 
-//const app = express();
-const port = 4000;
+
+//******************************************** */
 
 // Database connection URL
-const url = 'mongodb://localhost:27017';
-
-// Database name
-const dbName = 'bcontatcs';
+const url = 'mongodb://127.0.0.1:27017/bcontacts';
 
 // Connect to the MongoDB server
 mongoose.connect(url, {
@@ -75,12 +101,11 @@ mongoose.connect(url, {
   console.log('Error connecting to MongoDB server', error);
 });
 
-// Start the server
-app.listen(port, function() {
-  console.log(`Server started on port ${port}`);
-});
+// Use the business router for the /business route
+app.use('/business', businessRouter);
 
-
+// Use the login router for the /login route
+app.use('/login', loginRouter);
 //******************************************** */
 
 // catch 404 and forward to error handler
